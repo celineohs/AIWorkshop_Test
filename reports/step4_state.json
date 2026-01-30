@@ -1,0 +1,44 @@
+{
+  "step": 4,
+  "name": "state_analysis",
+  "timestamp": "2026-01-30 17:30",
+  "results": {
+    "n_states": 9,
+    "states": ["California", "Florida", "Illinois", "Michigan", "New York", "Pennsylvania", "Texas", "Virginia", "Washington"],
+    "total_n": 7308,
+    "excluded": "other (16,339명 - 이질적 집단)",
+    "anova": {
+      "significant_scales": ["NEO_O", "NEO_C", "NEO_E", "NEO_A", "NEO_N", "Ideology", "Honesty_Humility"],
+      "note": "모든 척도에서 p < .05, 단 효과크기 작음 (η² < 1%)"
+    },
+    "critical_ratios": {
+      "threshold": 3.0,
+      "n_significant": 8,
+      "findings": [
+        {"state": "Michigan", "scale": "Honesty_Humility", "cr": 4.31, "direction": "높음"},
+        {"state": "New York", "scale": "NEO_O", "cr": 3.87, "direction": "높음"},
+        {"state": "Illinois", "scale": "NEO_E", "cr": 3.65, "direction": "높음"},
+        {"state": "Michigan", "scale": "NEO_A", "cr": 3.34, "direction": "높음"},
+        {"state": "Florida", "scale": "NEO_N", "cr": -3.22, "direction": "낮음"},
+        {"state": "Michigan", "scale": "NEO_O", "cr": -3.22, "direction": "낮음"},
+        {"state": "California", "scale": "Honesty_Humility", "cr": -3.21, "direction": "낮음"},
+        {"state": "California", "scale": "Ideology", "cr": -3.11, "direction": "낮음"}
+      ]
+    },
+    "generated_files": [
+      "reports/state_sample_size.png",
+      "reports/state_critical_ratios.png",
+      "reports/state_big_five_boxplot.png",
+      "reports/state_profile.png"
+    ]
+  },
+  "notes": [
+    "State-level analysis (논문 축소 버전: County → State)",
+    "other 제외 (9개 주만 분석)",
+    "Michigan: 정직-겸손↑, 우호성↑, 개방성↓ (전통적/보수적)",
+    "California: 정직-겸손↓, Ideology↓ (진보적)",
+    "New York: 개방성↑",
+    "Illinois: 외향성↑",
+    "Florida: 신경증↓ (정서적 안정)"
+  ]
+}
