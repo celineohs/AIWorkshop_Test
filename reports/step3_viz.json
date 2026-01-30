@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-30 17:15",
+  "results": {
+    "data_loaded": {
+      "n_respondents": 23647,
+      "n_scales": 7
+    },
+    "correlation_matrix": {
+      "Ideology_NEO_O": -0.573,
+      "Honesty_Humility_NEO_A": 0.791,
+      "NEO_N_NEO_E": -0.238,
+      "NEO_N_NEO_C": -0.232,
+      "NEO_C_NEO_A": 0.194,
+      "Honesty_Humility_NEO_C": 0.266
+    },
+    "pairwise_n": {
+      "big_five_min": 23100,
+      "big_five_max": 23437,
+      "ideology_with_big5": 11600,
+      "hh_with_big5": 12600,
+      "ideology_hh": 9800
+    },
+    "generated_files": [
+      "reports/correlation_matrix.png",
+      "reports/big_five_distributions.png",
+      "reports/ideology_hh_distributions.png"
+    ],
+    "scales_visualized": ["NEO_O", "NEO_C", "NEO_E", "NEO_A", "NEO_N", "Ideology", "Honesty_Humility"]
+  }
+}
