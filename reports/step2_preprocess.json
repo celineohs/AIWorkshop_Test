@@ -1,0 +1,22 @@
+{
+  "step": 2,
+  "name": "preprocessing",
+  "timestamp": "2026-01-30 18:30",
+  "results": {
+    "qc": {
+      "min_responses": 10,
+      "low_response_count": 1,
+      "straight_lining_count": 31,
+      "flagged_count": 32,
+      "valid_n": 23647
+    },
+    "scores": {
+      "calculated_scales": ["NEO_O", "NEO_C", "NEO_E", "NEO_A", "NEO_N", "Ideology", "Honesty_Humility"],
+      "output_file": "data/processed/sapa_scores.csv"
+    }
+  },
+  "notes": [
+    "QC: 32명 제외 (응답부족 1 + straight-lining 31)",
+    "Big Five + Ideology + Honesty-Humility 계산 완료"
+  ]
+}

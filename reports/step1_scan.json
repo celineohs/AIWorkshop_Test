@@ -1,0 +1,17 @@
+{
+  "step": 1,
+  "name": "data_scan",
+  "timestamp": "2026-01-30 18:00",
+  "results": {
+    "n_respondents": 23679,
+    "n_items": 696,
+    "missing_rate": 0.876,
+    "avg_responses": 86,
+    "response_range": [0, 311],
+    "n_scales": 131
+  },
+  "notes": [
+    "Planned missingness confirmed (87.6%)",
+    "응답자당 평균 86개 문항 응답"
+  ]
+}
