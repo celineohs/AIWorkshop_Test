@@ -1,5 +1,360 @@
 {
-  "last_updated": "2026-01-30 17:20",
-  "steps_completed": ["scan", "preprocess", "viz", "state_analysis"],
-  "current_step": "done"
+  "current_step": "complete",
+  "completed_steps": ["data_scan", "preprocess", "viz", "state_analysis"],
+  "data_scan_results": {
+    "data_dimensions": {
+      "n_respondents": 23679,
+      "n_variables": 719,
+      "n_items": 696,
+      "n_demographic_vars": 22
+    },
+    "scoring_key": {
+      "n_items": 696,
+      "n_scales": 131,
+      "key_scales": {
+        "NEO_Big_Five": ["NEO_A", "NEO_C", "NEO_E", "NEO_O", "NEO_N"],
+        "HEXACO": ["HEXACO_A", "HEXACO_C", "HEXACO_X", "HEXACO_O", "HEXACO_E", "HEXACO_H"]
+      }
+    },
+    "missingness": {
+      "item_missing_rate": 0.876,
+      "is_planned_missingness": true,
+      "avg_responses_per_person": 86,
+      "response_range": {
+        "min": 0,
+        "max": 311
+      }
+    },
+    "key_findings": [
+      "SAPA uses planned missingness design - each participant responds to only a subset of 696 items",
+      "Average of 86 items per person (range: 0-311)",
+      "87.6% missing rate is expected and normal for SAPA design",
+      "Scoring key contains 131 scales including NEO Big Five and HEXACO",
+      "NEO Extraversion has 60 items with 25 reverse-scored items"
+    ],
+    "demographic_variables": [
+      "gender", "relstatus", "age", "marstatus", "height", "BMI",
+      "weight", "exer", "smoke", "country", "state", "ethnic", "education",
+      "jobstatus", "occPrestige", "occIncomeEst", "p1edu", "p1occPrestige",
+      "p1occIncomeEst", "p2edu", "p2occPrestige", "p2occIncomeEst"
+    ],
+    "data_files": {
+      "raw_data": "data/raw/sapa_data.csv",
+      "scoring_key": "data/raw/superKey696.csv",
+      "item_info": "data/raw/item_info.csv"
+    }
+  },
+  "preprocess_results": {
+    "qc_summary": {
+      "original_n": 23679,
+      "excluded_insufficient_responses": 1,
+      "excluded_straightlining": 31,
+      "total_excluded": 32,
+      "final_valid_n": 23647,
+      "valid_response_rate": 0.999
+    },
+    "calculated_scales": {
+      "big_five": [
+        "NEO_Openness",
+        "NEO_Conscientiousness",
+        "NEO_Extraversion",
+        "NEO_Agreeableness",
+        "NEO_Neuroticism"
+      ],
+      "ideology": "Ideology",
+      "honesty_humility": "Honesty_Humility"
+    },
+    "score_statistics": {
+      "NEO_Openness": {
+        "n": 23399,
+        "mean": 4.308,
+        "sd": 0.827,
+        "range": [1.0, 6.0]
+      },
+      "NEO_Conscientiousness": {
+        "n": 23417,
+        "mean": 4.233,
+        "sd": 0.855,
+        "range": [1.0, 6.0]
+      },
+      "NEO_Extraversion": {
+        "n": 23357,
+        "mean": 3.868,
+        "sd": 0.922,
+        "range": [1.0, 6.0]
+      },
+      "NEO_Agreeableness": {
+        "n": 23437,
+        "mean": 4.225,
+        "sd": 0.816,
+        "range": [1.0, 6.0]
+      },
+      "NEO_Neuroticism": {
+        "n": 23371,
+        "mean": 3.355,
+        "sd": 0.979,
+        "range": [1.0, 6.0]
+      },
+      "Ideology": {
+        "n": 11825,
+        "mean": 0.033,
+        "sd": 0.969,
+        "range": [-1.527, 1.675]
+      },
+      "Honesty_Humility": {
+        "n": 12828,
+        "mean": -0.003,
+        "sd": 0.727,
+        "range": [-2.962, 1.642]
+      }
+    },
+    "output_file": "data/processed/sapa_scores.csv",
+    "key_findings": [
+      "32 participants excluded (1 insufficient responses, 31 straight-lining)",
+      "99.9% of participants passed QC",
+      "Big Five scores calculated for ~23,000+ participants",
+      "Ideology and Honesty-Humility scores calculated for ~12,000 participants",
+      "All scores saved to data/processed/sapa_scores.csv"
+    ]
+  },
+  "visualization_results": {
+    "correlation_matrix": {
+      "scales_analyzed": 7,
+      "method": "pairwise deletion",
+      "key_correlations": [
+        {
+          "scale1": "NEO_Agreeableness",
+          "scale2": "Honesty_Humility",
+          "correlation": 0.791,
+          "n": 12828
+        },
+        {
+          "scale1": "NEO_Openness",
+          "scale2": "Ideology",
+          "correlation": -0.573,
+          "n": 11825
+        }
+      ],
+      "notable_findings": [
+        "Strong positive correlation between Agreeableness and Honesty-Humility (r=0.791)",
+        "Moderate negative correlation between Openness and Ideology (r=-0.573)",
+        "Most Big Five correlations are small to moderate (|r| < 0.3)"
+      ]
+    },
+    "distributions": {
+      "big_five": {
+        "n_per_scale": {
+          "NEO_Openness": 23399,
+          "NEO_Conscientiousness": 23417,
+          "NEO_Extraversion": 23357,
+          "NEO_Agreeableness": 23437,
+          "NEO_Neuroticism": 23371
+        },
+        "summary": "All Big Five scales show approximately normal distributions with means around 3.4-4.3"
+      },
+      "ideology_hh": {
+        "ideology": {
+          "n": 11825,
+          "mean": 0.033,
+          "sd": 0.969,
+          "range": [-1.527, 1.675]
+        },
+        "honesty_humility": {
+          "n": 12828,
+          "mean": -0.003,
+          "sd": 0.727,
+          "range": [-2.962, 1.642]
+        },
+        "summary": "Both scales are z-scores with means near zero, showing approximately normal distributions"
+      }
+    },
+    "output_files": [
+      "reports/figures/correlation_matrix.png",
+      "reports/figures/big_five_distributions.png",
+      "reports/figures/ideology_hh_distributions.png"
+    ],
+    "summary_statistics": {
+      "NEO_Openness": {
+        "n": 23399,
+        "mean": 4.308,
+        "sd": 0.827,
+        "skewness": -0.363
+      },
+      "NEO_Conscientiousness": {
+        "n": 23417,
+        "mean": 4.233,
+        "sd": 0.855,
+        "skewness": -0.330
+      },
+      "NEO_Extraversion": {
+        "n": 23357,
+        "mean": 3.868,
+        "sd": 0.922,
+        "skewness": -0.180
+      },
+      "NEO_Agreeableness": {
+        "n": 23437,
+        "mean": 4.225,
+        "sd": 0.816,
+        "skewness": -0.329
+      },
+      "NEO_Neuroticism": {
+        "n": 23371,
+        "mean": 3.355,
+        "sd": 0.979,
+        "skewness": 0.042
+      },
+      "Ideology": {
+        "n": 11825,
+        "mean": 0.033,
+        "sd": 0.969,
+        "skewness": 0.033
+      },
+      "Honesty_Humility": {
+        "n": 12828,
+        "mean": -0.003,
+        "sd": 0.727,
+        "skewness": -0.385
+      }
+    }
+  },
+  "state_analysis_results": {
+    "states_analyzed": 9,
+    "states": [
+      "California",
+      "Michigan",
+      "Illinois",
+      "Texas",
+      "Pennsylvania",
+      "Florida",
+      "New York",
+      "Washington",
+      "Virginia"
+    ],
+    "total_sample_size": 7308,
+    "average_sample_per_state": 812.0,
+    "median_sample_per_state": 700.0,
+    "scales_analyzed": 7,
+    "method": "Critical Ratios",
+    "threshold": 3.0,
+    "significant_features_count": 8,
+    "significant_features": [
+      {
+        "state": "Michigan",
+        "scale": "Honesty_Humility",
+        "cr": 4.306,
+        "direction": "High",
+        "mean": 0.201,
+        "grand_mean": 0.063
+      },
+      {
+        "state": "New York",
+        "scale": "NEO_Openness",
+        "cr": 3.870,
+        "direction": "High",
+        "mean": 4.395,
+        "grand_mean": 4.275
+      },
+      {
+        "state": "Illinois",
+        "scale": "NEO_Extraversion",
+        "cr": 3.655,
+        "direction": "High",
+        "mean": 4.070,
+        "grand_mean": 3.953
+      },
+      {
+        "state": "Michigan",
+        "scale": "NEO_Agreeableness",
+        "cr": 3.341,
+        "direction": "High",
+        "mean": 4.380,
+        "grand_mean": 4.290
+      },
+      {
+        "state": "Florida",
+        "scale": "NEO_Neuroticism",
+        "cr": -3.222,
+        "direction": "Low",
+        "mean": 3.196,
+        "grand_mean": 3.321
+      },
+      {
+        "state": "Michigan",
+        "scale": "NEO_Openness",
+        "cr": -3.218,
+        "direction": "Low",
+        "mean": 4.186,
+        "grand_mean": 4.275
+      },
+      {
+        "state": "California",
+        "scale": "Honesty_Humility",
+        "cr": -3.208,
+        "direction": "Low",
+        "mean": -0.009,
+        "grand_mean": 0.063
+      },
+      {
+        "state": "California",
+        "scale": "Ideology",
+        "cr": -3.105,
+        "direction": "Low",
+        "mean": 0.017,
+        "grand_mean": 0.119
+      }
+    ],
+    "state_summary": {
+      "California": {
+        "high_features": 0,
+        "low_features": 2
+      },
+      "Florida": {
+        "high_features": 0,
+        "low_features": 1
+      },
+      "Illinois": {
+        "high_features": 1,
+        "low_features": 0
+      },
+      "Michigan": {
+        "high_features": 2,
+        "low_features": 1
+      },
+      "New York": {
+        "high_features": 1,
+        "low_features": 0
+      }
+    },
+    "grand_means": {
+      "NEO_Openness": 4.275,
+      "NEO_Conscientiousness": 4.294,
+      "NEO_Extraversion": 3.953,
+      "NEO_Agreeableness": 4.290,
+      "NEO_Neuroticism": 3.321,
+      "Ideology": 0.119,
+      "Honesty_Humility": 0.063
+    },
+    "output_files": [
+      "reports/state_statistics.csv",
+      "reports/state_significant_features.csv",
+      "reports/state_sample_sizes.csv",
+      "reports/figures/state_critical_ratios_heatmap.png"
+    ],
+    "key_findings": [
+      "9 US states analyzed with 7,308 total participants",
+      "8 significant state-level features identified (|CR| > 3.0, p < .003)",
+      "Michigan shows highest Honesty-Humility (CR=4.31)",
+      "New York shows highest Openness (CR=3.87)",
+      "California shows lower Ideology and Honesty-Humility than average"
+    ]
+  },
+  "next_steps": {
+    "complete": {
+      "description": "All pipeline steps completed including state-level analysis",
+      "note": "Complete pipeline: Data scan → Preprocessing → Visualization → State Analysis. All analyses and visualizations have been generated."
+    }
+  },
+  "last_updated": "2024-12-19"
 }
+
