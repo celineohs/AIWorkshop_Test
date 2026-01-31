@@ -1,0 +1,105 @@
+{
+  "step": 3,
+  "name": "viz",
+  "notebook": "03_visualization.ipynb",
+  "correlation_matrix": {
+    "scales_analyzed": 7,
+    "method": "pairwise deletion",
+    "key_correlations": [
+      {
+        "scale1": "NEO_Agreeableness",
+        "scale2": "Honesty_Humility",
+        "correlation": 0.791,
+        "n": 12828
+      },
+      {
+        "scale1": "NEO_Openness",
+        "scale2": "Ideology",
+        "correlation": -0.573,
+        "n": 11825
+      }
+    ],
+    "notable_findings": [
+      "Strong positive correlation between Agreeableness and Honesty-Humility (r=0.791)",
+      "Moderate negative correlation between Openness and Ideology (r=-0.573)",
+      "Most Big Five correlations are small to moderate (|r| < 0.3)"
+    ]
+  },
+  "distributions": {
+    "big_five": {
+      "n_per_scale": {
+        "NEO_Openness": 23399,
+        "NEO_Conscientiousness": 23417,
+        "NEO_Extraversion": 23357,
+        "NEO_Agreeableness": 23437,
+        "NEO_Neuroticism": 23371
+      },
+      "summary": "All Big Five scales show approximately normal distributions with means around 3.4-4.3"
+    },
+    "ideology_hh": {
+      "ideology": {
+        "n": 11825,
+        "mean": 0.033,
+        "sd": 0.969,
+        "range": [-1.527, 1.675]
+      },
+      "honesty_humility": {
+        "n": 12828,
+        "mean": -0.003,
+        "sd": 0.727,
+        "range": [-2.962, 1.642]
+      },
+      "summary": "Both scales are z-scores with means near zero, showing approximately normal distributions"
+    }
+  },
+  "output_files": [
+    "reports/figures/correlation_matrix.png",
+    "reports/figures/big_five_distributions.png",
+    "reports/figures/ideology_hh_distributions.png"
+  ],
+  "summary_statistics": {
+    "NEO_Openness": {
+      "n": 23399,
+      "mean": 4.308,
+      "sd": 0.827,
+      "skewness": -0.363
+    },
+    "NEO_Conscientiousness": {
+      "n": 23417,
+      "mean": 4.233,
+      "sd": 0.855,
+      "skewness": -0.330
+    },
+    "NEO_Extraversion": {
+      "n": 23357,
+      "mean": 3.868,
+      "sd": 0.922,
+      "skewness": -0.180
+    },
+    "NEO_Agreeableness": {
+      "n": 23437,
+      "mean": 4.225,
+      "sd": 0.816,
+      "skewness": -0.329
+    },
+    "NEO_Neuroticism": {
+      "n": 23371,
+      "mean": 3.355,
+      "sd": 0.979,
+      "skewness": 0.042
+    },
+    "Ideology": {
+      "n": 11825,
+      "mean": 0.033,
+      "sd": 0.969,
+      "skewness": 0.033
+    },
+    "Honesty_Humility": {
+      "n": 12828,
+      "mean": -0.003,
+      "sd": 0.727,
+      "skewness": -0.385
+    }
+  }
+}
+

@@ -1,0 +1,77 @@
+{
+  "step": 2,
+  "name": "preprocess",
+  "notebook": "02_preprocessing.ipynb",
+  "qc_summary": {
+    "original_n": 23679,
+    "excluded_insufficient_responses": 1,
+    "excluded_straightlining": 31,
+    "total_excluded": 32,
+    "final_valid_n": 23647,
+    "valid_response_rate": 0.999
+  },
+  "calculated_scales": {
+    "big_five": [
+      "NEO_Openness",
+      "NEO_Conscientiousness",
+      "NEO_Extraversion",
+      "NEO_Agreeableness",
+      "NEO_Neuroticism"
+    ],
+    "ideology": "Ideology",
+    "honesty_humility": "Honesty_Humility"
+  },
+  "score_statistics": {
+    "NEO_Openness": {
+      "n": 23399,
+      "mean": 4.308,
+      "sd": 0.827,
+      "range": [1.0, 6.0]
+    },
+    "NEO_Conscientiousness": {
+      "n": 23417,
+      "mean": 4.233,
+      "sd": 0.855,
+      "range": [1.0, 6.0]
+    },
+    "NEO_Extraversion": {
+      "n": 23357,
+      "mean": 3.868,
+      "sd": 0.922,
+      "range": [1.0, 6.0]
+    },
+    "NEO_Agreeableness": {
+      "n": 23437,
+      "mean": 4.225,
+      "sd": 0.816,
+      "range": [1.0, 6.0]
+    },
+    "NEO_Neuroticism": {
+      "n": 23371,
+      "mean": 3.355,
+      "sd": 0.979,
+      "range": [1.0, 6.0]
+    },
+    "Ideology": {
+      "n": 11825,
+      "mean": 0.033,
+      "sd": 0.969,
+      "range": [-1.527, 1.675]
+    },
+    "Honesty_Humility": {
+      "n": 12828,
+      "mean": -0.003,
+      "sd": 0.727,
+      "range": [-2.962, 1.642]
+    }
+  },
+  "output_file": "data/processed/sapa_scores.csv",
+  "key_findings": [
+    "32 participants excluded (1 insufficient responses, 31 straight-lining)",
+    "99.9% of participants passed QC",
+    "Big Five scores calculated for ~23,000+ participants",
+    "Ideology and Honesty-Humility scores calculated for ~12,000 participants",
+    "All scores saved to data/processed/sapa_scores.csv"
+  ]
+}
+

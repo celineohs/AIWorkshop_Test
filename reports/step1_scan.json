@@ -1,0 +1,47 @@
+{
+  "step": 1,
+  "name": "scan",
+  "notebook": "01_data_scan.ipynb",
+  "data_dimensions": {
+    "n_respondents": 23679,
+    "n_variables": 719,
+    "n_items": 696,
+    "n_demographic_vars": 22
+  },
+  "scoring_key": {
+    "n_items": 696,
+    "n_scales": 131,
+    "key_scales": {
+      "NEO_Big_Five": ["NEO_A", "NEO_C", "NEO_E", "NEO_O", "NEO_N"],
+      "HEXACO": ["HEXACO_A", "HEXACO_C", "HEXACO_X", "HEXACO_O", "HEXACO_E", "HEXACO_H"]
+    }
+  },
+  "missingness": {
+    "item_missing_rate": 0.876,
+    "is_planned_missingness": true,
+    "avg_responses_per_person": 86,
+    "response_range": {
+      "min": 0,
+      "max": 311
+    }
+  },
+  "key_findings": [
+    "SAPA uses planned missingness design - each participant responds to only a subset of 696 items",
+    "Average of 86 items per person (range: 0-311)",
+    "87.6% missing rate is expected and normal for SAPA design",
+    "Scoring key contains 131 scales including NEO Big Five and HEXACO",
+    "NEO Extraversion has 60 items with 25 reverse-scored items"
+  ],
+  "demographic_variables": [
+    "gender", "relstatus", "age", "marstatus", "height", "BMI",
+    "weight", "exer", "smoke", "country", "state", "ethnic", "education",
+    "jobstatus", "occPrestige", "occIncomeEst", "p1edu", "p1occPrestige",
+    "p1occIncomeEst", "p2edu", "p2occPrestige", "p2occIncomeEst"
+  ],
+  "data_files": {
+    "raw_data": "data/raw/sapa_data.csv",
+    "scoring_key": "data/raw/superKey696.csv",
+    "item_info": "data/raw/item_info.csv"
+  }
+}
+

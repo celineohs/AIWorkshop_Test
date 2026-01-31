@@ -1,6 +1,12 @@
 {
   "current_step": "complete",
   "completed_steps": ["data_scan", "preprocess", "viz", "state_analysis"],
+  "step_files": {
+    "step1": "reports/step1_scan.json",
+    "step2": "reports/step2_preprocess.json",
+    "step3": "reports/step3_viz.json",
+    "step4": "reports/step4_state.json"
+  },
   "data_scan_results": {
     "data_dimensions": {
       "n_respondents": 23679,
@@ -349,10 +355,16 @@
       "California shows lower Ideology and Honesty-Humility than average"
     ]
   },
+  "github_repository": {
+    "url": "https://github.com/celineohs/SAPA",
+    "owner": "celineohs",
+    "name": "SAPA",
+    "last_pushed": "2024-12-19"
+  },
   "next_steps": {
     "complete": {
       "description": "All pipeline steps completed including state-level analysis",
-      "note": "Complete pipeline: Data scan → Preprocessing → Visualization → State Analysis. All analyses and visualizations have been generated."
+      "note": "Complete pipeline: Data scan → Preprocessing → Visualization → State Analysis. All analyses and visualizations have been generated and pushed to GitHub."
     }
   },
   "last_updated": "2024-12-19"
