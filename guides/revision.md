@@ -14,7 +14,7 @@
 |------|------|
 | `reports/step5_draft_method.md` | 원본 Method 초안 |
 | `reports/step5_draft_results.md` | 원본 Results 초안 |
-| `reports/06_proofreading_report.md` | 프루프리딩 평가 및 수정 사항 |
+| `reports/step6_proofreading_report.md` | 프루프리딩 평가 및 수정 사항 |
 
 ---
 

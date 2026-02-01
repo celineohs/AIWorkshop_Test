@@ -57,7 +57,7 @@ SAPA/
 | 3 | Visualization | `03_visualization.ipynb` → `step3_viz.json` | "다음 단계 만들어줘" |
 | 4 | State Analysis | `04_state_analysis.ipynb` → `step4_state.json` | "다음 단계 만들어줘" |
 | 5 | Writing | `step5_draft_method.md`, `step5_draft_results.md` | "다음 단계 만들어줘" |
-| 6 | Proofreading | `06_proofreading_report.md` | "다음 단계 만들어줘" |
+| 6 | Proofreading | `step6_proofreading_report.md` | "다음 단계 만들어줘" |
 | 7 | Revision | `step7_revised_method.md`, `step7_revised_results.md` | "다음 단계 만들어줘" |
 
 ---

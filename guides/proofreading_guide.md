@@ -2,7 +2,7 @@
 
 학술 문서를 체계적으로 검토하고 개선하기 위한 프루프리딩 가이드입니다.
 
-**출력 파일:** `reports/06_proofreading_report.md`
+**출력 파일:** `reports/step6_proofreading_report.md`
 
 ---
 
