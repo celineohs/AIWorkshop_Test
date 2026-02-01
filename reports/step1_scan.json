@@ -1,47 +1,53 @@
 {
-  "step": 1,
-  "name": "scan",
+  "step": "scan",
   "notebook": "01_data_scan.ipynb",
-  "data_dimensions": {
+  "timestamp": "2024-12-19",
+  "data_overview": {
+    "data_shape": [23679, 719],
     "n_respondents": 23679,
     "n_variables": 719,
+    "scoring_key_shape": [696, 131],
     "n_items": 696,
-    "n_demographic_vars": 22
+    "n_scales": 131
+  },
+  "variable_structure": {
+    "demographic_variables": 22,
+    "personality_items": 696,
+    "demo_cols": [
+      "gender", "relstatus", "age", "marstatus", "height", "BMI",
+      "weight", "exer", "smoke", "country", "state", "ethnic", "education",
+      "jobstatus", "occPrestige", "occIncomeEst", "p1edu", "p1occPrestige",
+      "p1occIncomeEst", "p2edu", "p2occPrestige", "p2occIncomeEst"
+    ]
+  },
+  "planned_missingness": {
+    "item_missing_rate": 0.876,
+    "item_missing_rate_pct": "87.6%",
+    "avg_responses_per_person": 86,
+    "responses_per_person_range": [0, 311],
+    "note": "Planned missingness 설계 - 정상적인 결측률"
   },
   "scoring_key": {
-    "n_items": 696,
-    "n_scales": 131,
-    "key_scales": {
+    "main_scales": {
       "NEO_Big_Five": ["NEO_A", "NEO_C", "NEO_E", "NEO_O", "NEO_N"],
       "HEXACO": ["HEXACO_A", "HEXACO_C", "HEXACO_X", "HEXACO_O", "HEXACO_E", "HEXACO_H"]
-    }
-  },
-  "missingness": {
-    "item_missing_rate": 0.876,
-    "is_planned_missingness": true,
-    "avg_responses_per_person": 86,
-    "response_range": {
-      "min": 0,
-      "max": 311
+    },
+    "neo_e_example": {
+      "n_items": 60,
+      "n_reverse_items": 25,
+      "reverse_items": [
+        "q_140", "q_175", "q_200", "q_313", "q_314", "q_576", "q_684", "q_690",
+        "q_1114", "q_1151", "q_1180", "q_1196", "q_1280", "q_1281", "q_1329",
+        "q_1330", "q_1480", "q_1531", "q_1567", "q_1600", "q_1666", "q_1685",
+        "q_1913", "q_1923", "q_2017"
+      ]
     }
   },
   "key_findings": [
-    "SAPA uses planned missingness design - each participant responds to only a subset of 696 items",
-    "Average of 86 items per person (range: 0-311)",
-    "87.6% missing rate is expected and normal for SAPA design",
-    "Scoring key contains 131 scales including NEO Big Five and HEXACO",
-    "NEO Extraversion has 60 items with 25 reverse-scored items"
-  ],
-  "demographic_variables": [
-    "gender", "relstatus", "age", "marstatus", "height", "BMI",
-    "weight", "exer", "smoke", "country", "state", "ethnic", "education",
-    "jobstatus", "occPrestige", "occIncomeEst", "p1edu", "p1occPrestige",
-    "p1occIncomeEst", "p2edu", "p2occPrestige", "p2occIncomeEst"
-  ],
-  "data_files": {
-    "raw_data": "data/raw/sapa_data.csv",
-    "scoring_key": "data/raw/superKey696.csv",
-    "item_info": "data/raw/item_info.csv"
-  }
+    "SAPA 데이터는 23,679명의 응답자와 719개 변수로 구성",
+    "696개 성격 문항과 22개 인구통계 변수 포함",
+    "Planned missingness 설계로 평균 86문항 응답 (전체 696문항 중)",
+    "채점 키는 131개 척도로 구성 (NEO Big Five, HEXACO 포함)",
+    "NEO_E 척도는 60개 문항 중 25개가 역채점"
+  ]
 }
-

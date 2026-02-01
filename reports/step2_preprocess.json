@@ -1,77 +1,66 @@
 {
-  "step": 2,
-  "name": "preprocess",
+  "step": "preprocess",
   "notebook": "02_preprocessing.ipynb",
-  "qc_summary": {
+  "qc_results": {
     "original_n": 23679,
-    "excluded_insufficient_responses": 1,
-    "excluded_straightlining": 31,
-    "total_excluded": 32,
-    "final_valid_n": 23647,
-    "valid_response_rate": 0.999
+    "final_n": 23647,
+    "excluded_n": 32,
+    "exclusion_reasons": [
+      "응답 부족 (10개 미만)",
+      "Straight-lining 패턴"
+    ]
   },
-  "calculated_scales": {
-    "big_five": [
-      "NEO_Openness",
-      "NEO_Conscientiousness",
-      "NEO_Extraversion",
-      "NEO_Agreeableness",
-      "NEO_Neuroticism"
-    ],
-    "ideology": "Ideology",
-    "honesty_humility": "Honesty_Humility"
-  },
-  "score_statistics": {
+  "total_respondents": 23647,
+  "scales": {
     "NEO_Openness": {
-      "n": 23399,
-      "mean": 4.308,
-      "sd": 0.827,
-      "range": [1.0, 6.0]
+      "N": 23399,
+      "Mean": 4.308111077601652,
+      "SD": 0.8267222600558468
     },
     "NEO_Conscientiousness": {
-      "n": 23417,
-      "mean": 4.233,
-      "sd": 0.855,
-      "range": [1.0, 6.0]
+      "N": 23417,
+      "Mean": 4.233400413999088,
+      "SD": 0.855028977835283
     },
     "NEO_Extraversion": {
-      "n": 23357,
-      "mean": 3.868,
-      "sd": 0.922,
-      "range": [1.0, 6.0]
+      "N": 23357,
+      "Mean": 3.8681385263851626,
+      "SD": 0.9222052892971438
     },
     "NEO_Agreeableness": {
-      "n": 23437,
-      "mean": 4.225,
-      "sd": 0.816,
-      "range": [1.0, 6.0]
+      "N": 23437,
+      "Mean": 4.2250832569666565,
+      "SD": 0.8155063222508362
     },
     "NEO_Neuroticism": {
-      "n": 23371,
-      "mean": 3.355,
-      "sd": 0.979,
-      "range": [1.0, 6.0]
+      "N": 23371,
+      "Mean": 3.3548073940451757,
+      "SD": 0.9791732726648366
     },
     "Ideology": {
-      "n": 11825,
-      "mean": 0.033,
-      "sd": 0.969,
-      "range": [-1.527, 1.675]
+      "N": 11825,
+      "Mean": 0.033001875298603295,
+      "SD": 0.9690694346552329
     },
     "Honesty_Humility": {
-      "n": 12828,
-      "mean": -0.003,
-      "sd": 0.727,
-      "range": [-2.962, 1.642]
+      "N": 12828,
+      "Mean": -0.0028980312358740145,
+      "SD": 0.7274062339644078
     }
   },
-  "output_file": "data/processed/sapa_scores.csv",
-  "key_findings": [
-    "32 participants excluded (1 insufficient responses, 31 straight-lining)",
-    "99.9% of participants passed QC",
-    "Big Five scores calculated for ~23,000+ participants",
-    "Ideology and Honesty-Humility scores calculated for ~12,000 participants",
-    "All scores saved to data/processed/sapa_scores.csv"
+  "columns": [
+    "RID",
+    "NEO_Openness",
+    "NEO_Conscientiousness",
+    "NEO_Extraversion",
+    "NEO_Agreeableness",
+    "NEO_Neuroticism",
+    "MPQ_Traditionalism",
+    "NEO_Liberalism",
+    "Ideology",
+    "NEO_Morality",
+    "NEO_Modesty",
+    "HEXACO_H",
+    "Honesty_Humility"
   ]
 }
-

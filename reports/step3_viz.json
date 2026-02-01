@@ -1,105 +1,203 @@
 {
-  "step": 3,
-  "name": "viz",
+  "step": "viz",
   "notebook": "03_visualization.ipynb",
+  "n_respondents": 23647,
+  "scales_analyzed": [
+    "NEO_Openness",
+    "NEO_Conscientiousness",
+    "NEO_Extraversion",
+    "NEO_Agreeableness",
+    "NEO_Neuroticism",
+    "Ideology",
+    "Honesty_Humility"
+  ],
   "correlation_matrix": {
-    "scales_analyzed": 7,
-    "method": "pairwise deletion",
-    "key_correlations": [
-      {
-        "scale1": "NEO_Agreeableness",
-        "scale2": "Honesty_Humility",
-        "correlation": 0.791,
-        "n": 12828
-      },
-      {
-        "scale1": "NEO_Openness",
-        "scale2": "Ideology",
-        "correlation": -0.573,
-        "n": 11825
-      }
-    ],
-    "notable_findings": [
-      "Strong positive correlation between Agreeableness and Honesty-Humility (r=0.791)",
-      "Moderate negative correlation between Openness and Ideology (r=-0.573)",
-      "Most Big Five correlations are small to moderate (|r| < 0.3)"
-    ]
-  },
-  "distributions": {
-    "big_five": {
-      "n_per_scale": {
-        "NEO_Openness": 23399,
-        "NEO_Conscientiousness": 23417,
-        "NEO_Extraversion": 23357,
-        "NEO_Agreeableness": 23437,
-        "NEO_Neuroticism": 23371
-      },
-      "summary": "All Big Five scales show approximately normal distributions with means around 3.4-4.3"
+    "NEO_Openness": {
+      "NEO_Openness": 1.0,
+      "NEO_Conscientiousness": 0.008,
+      "NEO_Extraversion": 0.099,
+      "NEO_Agreeableness": 0.071,
+      "NEO_Neuroticism": -0.046,
+      "Ideology": -0.573,
+      "Honesty_Humility": 0.03
     },
-    "ideology_hh": {
-      "ideology": {
-        "n": 11825,
-        "mean": 0.033,
-        "sd": 0.969,
-        "range": [-1.527, 1.675]
-      },
-      "honesty_humility": {
-        "n": 12828,
-        "mean": -0.003,
-        "sd": 0.727,
-        "range": [-2.962, 1.642]
-      },
-      "summary": "Both scales are z-scores with means near zero, showing approximately normal distributions"
+    "NEO_Conscientiousness": {
+      "NEO_Openness": 0.008,
+      "NEO_Conscientiousness": 1.0,
+      "NEO_Extraversion": 0.121,
+      "NEO_Agreeableness": 0.194,
+      "NEO_Neuroticism": -0.232,
+      "Ideology": 0.174,
+      "Honesty_Humility": 0.266
+    },
+    "NEO_Extraversion": {
+      "NEO_Openness": 0.099,
+      "NEO_Conscientiousness": 0.121,
+      "NEO_Extraversion": 1.0,
+      "NEO_Agreeableness": 0.067,
+      "NEO_Neuroticism": -0.238,
+      "Ideology": 0.056,
+      "Honesty_Humility": -0.038
+    },
+    "NEO_Agreeableness": {
+      "NEO_Openness": 0.071,
+      "NEO_Conscientiousness": 0.194,
+      "NEO_Extraversion": 0.067,
+      "NEO_Agreeableness": 1.0,
+      "NEO_Neuroticism": -0.085,
+      "Ideology": 0.052,
+      "Honesty_Humility": 0.791
+    },
+    "NEO_Neuroticism": {
+      "NEO_Openness": -0.046,
+      "NEO_Conscientiousness": -0.232,
+      "NEO_Extraversion": -0.238,
+      "NEO_Agreeableness": -0.085,
+      "NEO_Neuroticism": 1.0,
+      "Ideology": -0.048,
+      "Honesty_Humility": -0.118
+    },
+    "Ideology": {
+      "NEO_Openness": -0.573,
+      "NEO_Conscientiousness": 0.174,
+      "NEO_Extraversion": 0.056,
+      "NEO_Agreeableness": 0.052,
+      "NEO_Neuroticism": -0.048,
+      "Ideology": 1.0,
+      "Honesty_Humility": 0.097
+    },
+    "Honesty_Humility": {
+      "NEO_Openness": 0.03,
+      "NEO_Conscientiousness": 0.266,
+      "NEO_Extraversion": -0.038,
+      "NEO_Agreeableness": 0.791,
+      "NEO_Neuroticism": -0.118,
+      "Ideology": 0.097,
+      "Honesty_Humility": 1.0
     }
   },
-  "output_files": [
+  "correlations_ranked": [
+    {
+      "scale1": "A",
+      "scale2": "H-H",
+      "r": 0.7913070267187094
+    },
+    {
+      "scale1": "O",
+      "scale2": "Ideology",
+      "r": -0.5729702588167006
+    },
+    {
+      "scale1": "C",
+      "scale2": "H-H",
+      "r": 0.2658847975146577
+    },
+    {
+      "scale1": "E",
+      "scale2": "N",
+      "r": -0.2377345648091647
+    },
+    {
+      "scale1": "C",
+      "scale2": "N",
+      "r": -0.23245699866455888
+    },
+    {
+      "scale1": "C",
+      "scale2": "A",
+      "r": 0.19374064456641815
+    },
+    {
+      "scale1": "C",
+      "scale2": "Ideology",
+      "r": 0.17384254016229586
+    },
+    {
+      "scale1": "C",
+      "scale2": "E",
+      "r": 0.12130852416288493
+    },
+    {
+      "scale1": "N",
+      "scale2": "H-H",
+      "r": -0.11787350957482504
+    },
+    {
+      "scale1": "O",
+      "scale2": "E",
+      "r": 0.09912163912456058
+    },
+    {
+      "scale1": "Ideology",
+      "scale2": "H-H",
+      "r": 0.09722568327761683
+    },
+    {
+      "scale1": "A",
+      "scale2": "N",
+      "r": -0.08485739893572934
+    },
+    {
+      "scale1": "O",
+      "scale2": "A",
+      "r": 0.07135103912238762
+    },
+    {
+      "scale1": "E",
+      "scale2": "A",
+      "r": 0.06685285263601388
+    },
+    {
+      "scale1": "E",
+      "scale2": "Ideology",
+      "r": 0.05646917593196571
+    },
+    {
+      "scale1": "A",
+      "scale2": "Ideology",
+      "r": 0.052159291614908315
+    },
+    {
+      "scale1": "N",
+      "scale2": "Ideology",
+      "r": -0.047946308394405474
+    },
+    {
+      "scale1": "O",
+      "scale2": "N",
+      "r": -0.04596272007720451
+    },
+    {
+      "scale1": "E",
+      "scale2": "H-H",
+      "r": -0.037661067756396535
+    },
+    {
+      "scale1": "O",
+      "scale2": "H-H",
+      "r": 0.03038451241387852
+    },
+    {
+      "scale1": "O",
+      "scale2": "C",
+      "r": 0.008314646696254514
+    }
+  ],
+  "major_correlations": [
+    {
+      "scale1": "A",
+      "scale2": "H-H",
+      "r": 0.7913070267187094
+    },
+    {
+      "scale1": "O",
+      "scale2": "Ideology",
+      "r": -0.5729702588167006
+    }
+  ],
+  "figures_generated": [
     "reports/figures/correlation_matrix.png",
     "reports/figures/big_five_distributions.png",
     "reports/figures/ideology_hh_distributions.png"
-  ],
-  "summary_statistics": {
-    "NEO_Openness": {
-      "n": 23399,
-      "mean": 4.308,
-      "sd": 0.827,
-      "skewness": -0.363
-    },
-    "NEO_Conscientiousness": {
-      "n": 23417,
-      "mean": 4.233,
-      "sd": 0.855,
-      "skewness": -0.330
-    },
-    "NEO_Extraversion": {
-      "n": 23357,
-      "mean": 3.868,
-      "sd": 0.922,
-      "skewness": -0.180
-    },
-    "NEO_Agreeableness": {
-      "n": 23437,
-      "mean": 4.225,
-      "sd": 0.816,
-      "skewness": -0.329
-    },
-    "NEO_Neuroticism": {
-      "n": 23371,
-      "mean": 3.355,
-      "sd": 0.979,
-      "skewness": 0.042
-    },
-    "Ideology": {
-      "n": 11825,
-      "mean": 0.033,
-      "sd": 0.969,
-      "skewness": 0.033
-    },
-    "Honesty_Humility": {
-      "n": 12828,
-      "mean": -0.003,
-      "sd": 0.727,
-      "skewness": -0.385
-    }
-  }
+  ]
 }
-

@@ -1,9 +1,13 @@
 {
-  "step": 4,
-  "name": "state",
+  "step": "state_analysis",
   "notebook": "04_state_analysis.ipynb",
-  "states_analyzed": 9,
-  "states": [
+  "analysis_summary": {
+    "n_states": 9,
+    "n_respondents": 7308,
+    "n_scales": 7,
+    "min_n_threshold": 100
+  },
+  "states_analyzed": [
     "California",
     "Michigan",
     "Illinois",
@@ -14,122 +18,102 @@
     "Washington",
     "Virginia"
   ],
-  "total_sample_size": 7308,
-  "average_sample_per_state": 812.0,
-  "median_sample_per_state": 700.0,
-  "scales_analyzed": 7,
-  "method": "Critical Ratios",
-  "threshold": 3.0,
-  "significant_features_count": 8,
+  "state_n": {
+    "California": 1713,
+    "Michigan": 860,
+    "Illinois": 820,
+    "Texas": 711,
+    "Pennsylvania": 700,
+    "Florida": 696,
+    "New York": 684,
+    "Washington": 599,
+    "Virginia": 525
+  },
+  "grand_means": {
+    "O": 4.275382211031184,
+    "C": 4.294257775523954,
+    "E": 3.95334257682636,
+    "A": 4.290150404651006,
+    "N": 3.32121281217153,
+    "Ideology": 0.11908187338052856,
+    "H-H": 0.06337256471239115
+  },
   "significant_features": [
     {
       "state": "Michigan",
-      "scale": "Honesty_Humility",
-      "cr": 4.306,
-      "direction": "High",
-      "mean": 0.201,
-      "grand_mean": 0.063
+      "scale": "H-H",
+      "n": 463,
+      "mean": 0.20139649498902557,
+      "se": 0.032055698109047244,
+      "cr": 4.305753373615632,
+      "significant": true
     },
     {
       "state": "New York",
-      "scale": "NEO_Openness",
-      "cr": 3.870,
-      "direction": "High",
-      "mean": 4.395,
-      "grand_mean": 4.275
+      "scale": "O",
+      "n": 680,
+      "mean": 4.394886325939412,
+      "se": 0.030880440350201807,
+      "cr": 3.8698967227469248,
+      "significant": true
     },
     {
       "state": "Illinois",
-      "scale": "NEO_Extraversion",
-      "cr": 3.655,
-      "direction": "High",
-      "mean": 4.070,
-      "grand_mean": 3.953
+      "scale": "E",
+      "n": 812,
+      "mean": 4.069677421973736,
+      "se": 0.031831658078393575,
+      "cr": 3.65469008434534,
+      "significant": true
     },
     {
       "state": "Michigan",
-      "scale": "NEO_Agreeableness",
-      "cr": 3.341,
-      "direction": "High",
-      "mean": 4.380,
-      "grand_mean": 4.290
+      "scale": "A",
+      "n": 856,
+      "mean": 4.380044868265171,
+      "se": 0.026907905473208656,
+      "cr": 3.340819808649545,
+      "significant": true
     },
     {
       "state": "Florida",
-      "scale": "NEO_Neuroticism",
-      "cr": -3.222,
-      "direction": "Low",
-      "mean": 3.196,
-      "grand_mean": 3.321
+      "scale": "N",
+      "n": 691,
+      "mean": 3.1964524496735796,
+      "se": 0.03871745667516772,
+      "cr": -3.222328458831034,
+      "significant": true
     },
     {
       "state": "Michigan",
-      "scale": "NEO_Openness",
-      "cr": -3.218,
-      "direction": "Low",
-      "mean": 4.186,
-      "grand_mean": 4.275
+      "scale": "O",
+      "n": 850,
+      "mean": 4.1858354082737685,
+      "se": 0.027824937972388053,
+      "cr": -3.218221109649082,
+      "significant": true
     },
     {
       "state": "California",
-      "scale": "Honesty_Humility",
-      "cr": -3.208,
-      "direction": "Low",
-      "mean": -0.009,
-      "grand_mean": 0.063
+      "scale": "H-H",
+      "n": 959,
+      "mean": -0.009005962646098436,
+      "se": 0.022562582038047167,
+      "cr": -3.2079009058643218,
+      "significant": true
     },
     {
       "state": "California",
       "scale": "Ideology",
-      "cr": -3.105,
-      "direction": "Low",
-      "mean": 0.017,
-      "grand_mean": 0.119
+      "n": 836,
+      "mean": 0.016976690016913508,
+      "se": 0.03288191377915,
+      "cr": -3.1052080499146197,
+      "significant": true
     }
   ],
-  "state_summary": {
-    "California": {
-      "high_features": 0,
-      "low_features": 2
-    },
-    "Florida": {
-      "high_features": 0,
-      "low_features": 1
-    },
-    "Illinois": {
-      "high_features": 1,
-      "low_features": 0
-    },
-    "Michigan": {
-      "high_features": 2,
-      "low_features": 1
-    },
-    "New York": {
-      "high_features": 1,
-      "low_features": 0
-    }
-  },
-  "grand_means": {
-    "NEO_Openness": 4.275,
-    "NEO_Conscientiousness": 4.294,
-    "NEO_Extraversion": 3.953,
-    "NEO_Agreeableness": 4.290,
-    "NEO_Neuroticism": 3.321,
-    "Ideology": 0.119,
-    "Honesty_Humility": 0.063
-  },
-  "output_files": [
-    "reports/state_statistics.csv",
-    "reports/state_significant_features.csv",
-    "reports/state_sample_sizes.csv",
+  "n_significant_features": 8,
+  "figures_generated": [
     "reports/figures/state_critical_ratios_heatmap.png"
-  ],
-  "key_findings": [
-    "9 US states analyzed with 7,308 total participants",
-    "8 significant state-level features identified (|CR| > 3.0, p < .003)",
-    "Michigan shows highest Honesty-Humility (CR=4.31)",
-    "New York shows highest Openness (CR=3.87)",
-    "California shows lower Ideology and Honesty-Humility than average"
   ]
 }
-

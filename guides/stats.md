@@ -48,9 +48,36 @@
 어떤 지역이 특정 성격 특성에서 유의미하게 높거나 낮은지 판별합니다 [5].
 
 *   **계산:** 각 Nation별 평균 점수(Mean)와 표준오차(SE) 계산.
-*   **기준 (Threshold):** 절대값 Critical Ratio ($|z|/se$) > 3.0.
+*   **공식:** `CR = (Group Mean - Grand Mean) / SE`
+*   **기준 (Threshold):** 절대값 Critical Ratio ($|CR|$) > 3.0.
     *   즉, 평균이 표준오차의 3배 이상 떨어져 있을 때 유의미한 특징으로 간주 ($p < .003$).
-*   **시각화:** Bubble plot을 사용하여 점수 분포와 표본 크기를 동시에 표현 (Figure 3 참조) [5].
+*   **시각화:** Bubble plot 또는 히트맵을 사용하여 점수 분포 표현.
+
+> **⚠️ 분석 시 컬럼명 주의**
+> - Big Five 컬럼: `NEO_O`, `NEO_C`, `NEO_E`, `NEO_A`, `NEO_N` (약어 사용)
+> - 복합 척도: `Ideology`, `Honesty_Humility`
+> - `NEO_Openness`, `NEO_Conscientiousness` 등 전체 이름 사용 시 **KeyError** 발생!
+
+**코드 예시 (Python):**
+```python
+# 7개 주요 척도 (실제 컬럼명 사용!)
+scales = ['NEO_O', 'NEO_C', 'NEO_E', 'NEO_A', 'NEO_N', 'Ideology', 'Honesty_Humility']
+scale_labels = ['O', 'C', 'E', 'A', 'N', 'Ideology', 'H-H']
+
+# Grand Mean 계산
+grand_means = df_analysis[scales].mean()
+
+# State별 CR 계산
+for state in valid_states:
+    state_data = df_analysis[df_analysis['state'] == state]
+    for scale, label in zip(scales, scale_labels):
+        data = state_data[scale].dropna()
+        n = len(data)
+        mean = data.mean()
+        se = data.std() / np.sqrt(n)
+        cr = (mean - grand_means[scale]) / se
+        # |CR| > 3.0 → 유의미
+```
 
 ### C. 다변량 구조 분석 (Canonical Discriminant Analysis)
 여러 성격 변수를 동시에 고려하여 지역들을 가장 잘 구분하는 차원을 찾습니다 [6].

@@ -12,19 +12,20 @@ description: 다음 단계 노트북을 생성합니다. "다음 단계 만들�
 3. 노트북 생성
 
 ## 파이프라인
-
-| current_step | 생성할 노트북 | 참조 |
-|--------------|--------------|------|
+| current_step | 생성할 파일 | 참조 |
+|--------------|------------|------|
 | `preprocess` | 02_preprocessing.ipynb | preprocessing_guide.md |
 | `viz` | 03_visualization.ipynb | step2 결과 |
 | `state_analysis` | 04_state_analysis.ipynb | stats.md |
-
+| `writing` | step5_draft_method.md, step5_draft_results.md | writing.md |
+| `proofreading` | step6_proofreading_report.md | proofreading_guide.md |
+| `revision` | step7_revised_method.md, step7_revised_results.md | revision.md |
 ---
 
 ## Step 2: Preprocessing
 
 ### 참조
-- `reports/preprocessing_guide.md` (점수 계산 공식)
+- `guides/preprocessing_guide.md` (점수 계산 공식)
 
 ### 분석 순서
 1. **QC**: 응답 부족(10개 미만), Straight-lining 제외
@@ -58,7 +59,7 @@ description: 다음 단계 노트북을 생성합니다. "다음 단계 만들�
 ## Step 4: State Analysis
 
 ### 참조
-- `reports/stats.md` (Critical Ratios 방법론)
+- `guides/stats.md` (Critical Ratios 방법론)
 
 ### 분석 순서
 1. **데이터 준비**: state 변수 병합, "other" 제외 (9개 주만)
@@ -73,6 +74,22 @@ description: 다음 단계 노트북을 생성합니다. "다음 단계 만들�
 
 ---
 
+## Step 5: Writing
+
+### 참조
+- `guides/writing.md` (JSON 경로 매핑, 글쓰기 원칙)
+
+### 작성 순서
+1. step1~4 JSON 파일 읽기
+2. writing.md의 경로 매핑 참조하여 값 추출
+3. Method/Results 초안 생성
+
+### 출력할 내용
+- `reports/step5_draft_method.md`
+- `reports/step5_draft_results.md`
+
+---
+
 ## 노트북 공통 규칙
 
 1. 첫 셀: `%pip install` (필요한 패키지)
@@ -83,8 +100,71 @@ description: 다음 단계 노트북을 생성합니다. "다음 단계 만들�
 
 ## 주의사항
 
-### Index 정렬 문제
-QC로 응답자를 제외하면 index가 불연속적이 됩니다. Ideology, H-H 계산 시 z-score 결과를 할당할 때 `.values`를 사용해서 index 정보를 제거해야 합니다. 안 그러면 상관관계가 거의 0으로 나오는 오류가 발생합니다.
+### z-score 계산 시 Index 유지
+Ideology, H-H 계산 시 z-score를 DataFrame에 할당할 때 **반드시 index를 유지**해야 합니다.
+
+```python
+# ❌ 잘못된 방법 (NaN 전체 발생)
+z_mpqtr = stats.zscore(scores['MPQ_Traditionalism'].values)
+scores['Ideology'] = (z_mpqtr + z_neo_lib * -1) / 2
+
+# ✅ 올바른 방법 (pd.Series로 index 유지)
+valid_mask = scores['MPQ_Traditionalism'].notna() & scores['NEO_Liberalism'].notna()
+mpqtr_valid = scores.loc[valid_mask, 'MPQ_Traditionalism']
+z_mpqtr = pd.Series(stats.zscore(mpqtr_valid.values), index=mpqtr_valid.index)
+```
+
+### 컬럼명 규칙
+Big Five 컬럼은 **약어** 사용: `NEO_O`, `NEO_C`, `NEO_E`, `NEO_A`, `NEO_N`
+- ❌ `NEO_Openness` → KeyError 발생
+- ✅ `NEO_O`
 
 ### 커널 재시작
-이전 노트북 수정 후 다음 노트북을 확인할 때는 커널을 재시작해야 합니다. 캐시된 데이터가 사용되어 수정 사항이 반영 안 될 수 있습니다.
+이전 노트북 수정 후 다음 노트북을 확인할 때는 커널을 재시작해야 합니다.
+
+### Writing Step 전제조건
+step1~step4 JSON 파일이 모두 존재해야 writing step 실행 가능.
+
+---
+## Step 6: Proofreading
+
+### 참조
+- `guides/proofreading_guide.md` (평가 기준, Few-shot 예시, 템플릿)
+- `reports/step5_draft_method.md` (평가 대상)
+- `reports/step5_draft_results.md` (평가 대상)
+
+### 평가 순서
+1. **Methods 평가**: 5가지 기준 (Reproducibility, Controls, Sample size, Statistical appropriateness, Validation)
+2. **Results 평가**: 각 문장별 Claim type, Evidence level, Overclaiming risk
+3. **Top 3 Overclaim 식별**: 가장 위험한 문장 3개와 수정안
+4. **종합 보고서 작성**: Must Fix / Should Fix / Nice to Have 분류
+
+### 출력할 내용
+- `reports/step6_proofreading_report.md`
+
+### 전제조건
+- step5_draft_method.md 존재
+- step5_draft_results.md 존재
+
+---
+## Step 7: Revision
+
+### 참조
+- `reports/step5_draft_method.md` (원본 Method 초안)
+- `reports/step5_draft_results.md` (원본 Results 초안)
+- `reports/step6_proofreading_report.md` (프루프리딩 평가 및 수정 사항)
+
+### 수정 순서
+1. 프루프리딩 보고서의 "필수 수정 사항 (Must Fix)" 확인
+2. Methods 섹션 수정 (재현성, 통제, 검정력, 통계 적절성, 타당성)
+3. Results 섹션 수정 (overclaiming 완화, 표현 보수화)
+4. "수정 전후 비교" 섹션의 수정안 반영
+
+### 출력할 내용
+- `reports/step7_revised_method.md`
+- `reports/step7_revised_results.md`
+
+### Revision 전제조건
+- step5_draft_method.md 존재
+- step5_draft_results.md 존재
+- step6_proofreading_report.md 존재

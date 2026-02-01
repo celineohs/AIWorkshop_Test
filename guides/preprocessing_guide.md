@@ -124,7 +124,7 @@ def calculate_scale_score(df, keys, scale_name):
     available_items = [q for q in scale_items if q in df.columns]
     
     if not available_items:
-        return pd.Series([np.nan] * len(df))
+        return pd.Series([np.nan] * len(df), index=df.index)
     
     # 역채점 적용 (6점 척도: 7 - 원점수)
     subset = df[available_items].copy()
@@ -136,38 +136,76 @@ def calculate_scale_score(df, keys, scale_name):
     return subset.mean(axis=1, skipna=True)
 
 # Big Five 점수 계산
+# ⚠️ 컬럼명 규칙: 약어 사용 (NEO_O, NEO_C 등)
 scores = pd.DataFrame()
 scores['RID'] = data['RID']
-scores['NEO_Openness'] = calculate_scale_score(data, keys, 'NEO_O')
-scores['NEO_Conscientiousness'] = calculate_scale_score(data, keys, 'NEO_C')
-scores['NEO_Extraversion'] = calculate_scale_score(data, keys, 'NEO_E')
-scores['NEO_Agreeableness'] = calculate_scale_score(data, keys, 'NEO_A')
-scores['NEO_Neuroticism'] = calculate_scale_score(data, keys, 'NEO_N')
+scores['NEO_O'] = calculate_scale_score(data, keys, 'NEO_O')
+scores['NEO_C'] = calculate_scale_score(data, keys, 'NEO_C')
+scores['NEO_E'] = calculate_scale_score(data, keys, 'NEO_E')
+scores['NEO_A'] = calculate_scale_score(data, keys, 'NEO_A')
+scores['NEO_N'] = calculate_scale_score(data, keys, 'NEO_N')
 ```
 
+> **⚠️ 컬럼명 주의사항**
+> - 저장되는 컬럼명은 채점 키의 척도명과 동일하게 **약어**를 사용합니다.
+> - `NEO_O` (Openness), `NEO_C` (Conscientiousness), `NEO_E` (Extraversion), `NEO_A` (Agreeableness), `NEO_N` (Neuroticism)
+> - `NEO_Openness`, `NEO_Conscientiousness` 등 전체 이름을 사용하면 **KeyError** 발생!
+
 ### Step 3: Ideology & Honesty-Humility 점수 계산
+
+> **⚠️ 중요: z-score 계산 시 주의사항**
+> - `scipy.stats.zscore()`는 NaN이 포함되면 전체가 NaN이 됨
+> - 구성 요소가 **모두 유효한 경우에만** 계산해야 함
+> - numpy array를 DataFrame에 할당할 때 **index를 유지**해야 함
 
 ```python
 from scipy import stats
 
-def z_score(series):
-    """표준화 (z-score)"""
-    return (series - series.mean()) / series.std()
-
-# Ideology: MPQ Traditionalism + NEO Liberalism(역채점)
+# Ideology 구성 요소 계산
 scores['MPQ_Traditionalism'] = calculate_scale_score(data, keys, 'MPQtr')
 scores['NEO_Liberalism'] = calculate_scale_score(data, keys, 'NEOo6')
-scores['Ideology'] = (z_score(scores['MPQ_Traditionalism']) + 
-                      z_score(scores['NEO_Liberalism']) * -1) / 2
 
-# Honesty-Humility: NEO A2 + NEO A4 + HEXACO_H
+# ✅ 올바른 방법: 유효한 값만 추출하여 z-score 계산 후 index 유지
+valid_mask = scores['MPQ_Traditionalism'].notna() & scores['NEO_Liberalism'].notna()
+
+if valid_mask.sum() > 0:
+    mpqtr_valid = scores.loc[valid_mask, 'MPQ_Traditionalism']
+    neo_lib_valid = scores.loc[valid_mask, 'NEO_Liberalism']
+    
+    # pd.Series로 변환하여 index 유지
+    z_mpqtr = pd.Series(stats.zscore(mpqtr_valid.values), index=mpqtr_valid.index)
+    z_neo_lib = pd.Series(stats.zscore(neo_lib_valid.values), index=neo_lib_valid.index)
+    
+    scores['Ideology'] = (z_mpqtr + z_neo_lib * -1) / 2
+
+# Honesty-Humility 구성 요소 계산
 scores['NEO_Morality'] = calculate_scale_score(data, keys, 'NEOa2')
 scores['NEO_Modesty'] = calculate_scale_score(data, keys, 'NEOa4')
 scores['HEXACO_H'] = calculate_scale_score(data, keys, 'HEXACO_H')
-scores['Honesty_Humility'] = (z_score(scores['NEO_Morality']) + 
-                               z_score(scores['NEO_Modesty']) + 
-                               z_score(scores['HEXACO_H'])) / 3
+
+# 세 구성 요소가 모두 유효한 경우에만 계산
+valid_mask = (scores['NEO_Morality'].notna() & 
+              scores['NEO_Modesty'].notna() & 
+              scores['HEXACO_H'].notna())
+
+if valid_mask.sum() > 0:
+    neo_a2_valid = scores.loc[valid_mask, 'NEO_Morality']
+    neo_a4_valid = scores.loc[valid_mask, 'NEO_Modesty']
+    hexaco_h_valid = scores.loc[valid_mask, 'HEXACO_H']
+    
+    z_neo_a2 = pd.Series(stats.zscore(neo_a2_valid.values), index=neo_a2_valid.index)
+    z_neo_a4 = pd.Series(stats.zscore(neo_a4_valid.values), index=neo_a4_valid.index)
+    z_hexaco_h = pd.Series(stats.zscore(hexaco_h_valid.values), index=hexaco_h_valid.index)
+    
+    scores['Honesty_Humility'] = (z_neo_a2 + z_neo_a4 + z_hexaco_h) / 3
 ```
+
+> **❌ 흔한 실수 (NaN 발생 원인)**
+> ```python
+> # 잘못된 방법: .values 사용 후 바로 할당 → index 불일치로 NaN 발생
+> z_mpqtr = stats.zscore(scores['MPQ_Traditionalism'].values)
+> scores['Ideology'] = (z_mpqtr + z_neo_lib * -1) / 2  # 모두 NaN!
+> ```
 
 ### Step 4: 결과 저장
 
@@ -186,22 +224,58 @@ print(f"점수 계산된 응답자 수: {len(scores)}")
 
 ## 8. 주요 척도 컬럼명 (superKey696.csv)
 
-| 카테고리 | 컬럼명 | 설명 |
-|----------|--------|------|
-| **NEO Big Five** | `NEO_O`, `NEO_C`, `NEO_E`, `NEO_A`, `NEO_N` | NEO 도메인 점수 |
-| **NEO Facets** | `NEOo1`~`NEOo6`, `NEOc1`~`NEOc6`, ... | NEO 하위 척도 |
-| **HEXACO** | `HEXACO_H`, `HEXACO_E`, `HEXACO_X`, `HEXACO_A`, `HEXACO_C`, `HEXACO_O` | HEXACO 도메인 |
-| **MPQ** | `MPQtr` (Traditionalism), `MPQwb` (Well-being), ... | MPQ 척도 |
-| **IPIP-100** | `IPIP100agree`, `IPIP100consc`, ... | IPIP-100 척도 |
-| **BFAS** | `BFAScomp`, `BFASpolite`, `BFASindustry`, ... | Big Five Aspect Scales |
+### 채점 키 척도명 → CSV 컬럼명 매핑
+
+| 카테고리 | 채점 키 척도명 | 저장 컬럼명 | 설명 |
+|----------|---------------|-------------|------|
+| **NEO Big Five** | `NEO_O`, `NEO_C`, `NEO_E`, `NEO_A`, `NEO_N` | `NEO_O`, `NEO_C`, `NEO_E`, `NEO_A`, `NEO_N` | 약어 그대로 사용 |
+| **NEO Facets** | `NEOo1`~`NEOo6`, `NEOc1`~`NEOc6`, ... | 동일 | NEO 하위 척도 |
+| **HEXACO** | `HEXACO_H`, `HEXACO_E`, `HEXACO_X`, ... | 동일 | HEXACO 도메인 |
+| **MPQ** | `MPQtr`, `MPQwb`, ... | `MPQ_Traditionalism` 등 | 읽기 쉬운 이름으로 변환 |
+| **복합 척도** | (계산식 참조) | `Ideology`, `Honesty_Humility` | z-score 평균 |
+
+### ⚠️ 흔한 컬럼명 오류
+
+| 잘못된 이름 (❌) | 올바른 이름 (✅) |
+|-----------------|-----------------|
+| `NEO_Openness` | `NEO_O` |
+| `NEO_Conscientiousness` | `NEO_C` |
+| `NEO_Extraversion` | `NEO_E` |
+| `NEO_Agreeableness` | `NEO_A` |
+| `NEO_Neuroticism` | `NEO_N` |
+
+> **규칙:** 시각화/분석 시 `data/processed/sapa_scores.csv`의 **실제 컬럼명**을 사용할 것!
 
 ---
 
-## 9. 체크리스트
+## 9. 출력 파일 스키마
+
+### `data/processed/sapa_scores.csv` 컬럼 구조
+
+| 컬럼명 | 타입 | 설명 |
+|--------|------|------|
+| `RID` | int | 응답자 고유 ID |
+| `NEO_O` | float | Openness (개방성) |
+| `NEO_C` | float | Conscientiousness (성실성) |
+| `NEO_E` | float | Extraversion (외향성) |
+| `NEO_A` | float | Agreeableness (우호성) |
+| `NEO_N` | float | Neuroticism (신경증) |
+| `MPQ_Traditionalism` | float | Ideology 구성요소 |
+| `NEO_Liberalism` | float | Ideology 구성요소 |
+| `Ideology` | float | 보수 이념 (z-score 평균) |
+| `NEO_Morality` | float | H-H 구성요소 |
+| `NEO_Modesty` | float | H-H 구성요소 |
+| `HEXACO_H` | float | H-H 구성요소 |
+| `Honesty_Humility` | float | 정직-겸손 (z-score 평균) |
+
+---
+
+## 10. 체크리스트
 
 실습 완료 시 아래 파일이 생성되면 성공:
 
 - [ ] `data/processed/sapa_scores.csv` — Big Five + Ideology + H-H 점수
-- [ ] `reports/data_overview.md` — 데이터 구조 요약
-- [ ] `reports/qc_report.md` — 품질 검사 리포트
-- [ ] `reports/correlation_matrix.png` — 상관행렬 시각화
+- [ ] `reports/figures/correlation_matrix.png` — 상관행렬 시각화
+- [ ] `reports/figures/big_five_distributions.png` — Big Five 분포
+- [ ] `reports/figures/ideology_hh_distributions.png` — Ideology/H-H 분포
+- [ ] `reports/figures/state_critical_ratios_heatmap.png` — State별 CR 히트맵
