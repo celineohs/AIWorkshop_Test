@@ -15,6 +15,12 @@
 ## 2. 점수 계산 방법
 `psych` R 패키지를 사용하여 항목 수준의 데이터를 78개의 하위 척도 및 상위 요인 점수로 변환했습니다 [8].
 
+### ⚠️ 중요: 파일 인코딩
+**모든 CSV 파일 읽기/쓰기 시 `encoding='utf-8'`를 명시해야 합니다.**
+- 다른 환경(Windows, Linux, Mac)에서도 인코딩 오류를 방지합니다.
+- 예: `pd.read_csv('file.csv', encoding='utf-8')`
+- 예: `df.to_csv('file.csv', encoding='utf-8')`
+
 ### Big Five 및 주요 성격 요인
 *   **계산 방식:** `superKey696.csv`와 같은 채점 키(scoring matrix)를 사용하여 각 요인에 해당하는 문항들의 평균을 계산합니다.
 *   **사용 척도:** IPIP-NEO와 IPIP-HEXACO의 도메인 점수를 사용했습니다.
@@ -99,9 +105,9 @@ import pandas as pd
 import numpy as np
 
 # 프로젝트 루트 기준 상대경로
-data = pd.read_csv('data/raw/sapa_data.csv')
-keys = pd.read_csv('data/raw/superKey696.csv', index_col=0)
-item_info = pd.read_csv('data/raw/item_info.csv')
+data = pd.read_csv('data/raw/sapa_data.csv', encoding='utf-8')
+keys = pd.read_csv('data/raw/superKey696.csv', index_col=0, encoding='utf-8')
+item_info = pd.read_csv('data/raw/item_info.csv', encoding='utf-8')
 
 print(f"응답자 수: {len(data)}")
 print(f"변수 수: {len(data.columns)}")
@@ -215,7 +221,7 @@ import os
 os.makedirs('data/processed', exist_ok=True)
 
 # 점수 저장
-scores.to_csv('data/processed/sapa_scores.csv', index=False)
+scores.to_csv('data/processed/sapa_scores.csv', index=False, encoding='utf-8')
 print(f"저장 완료: data/processed/sapa_scores.csv")
 print(f"점수 계산된 응답자 수: {len(scores)}")
 ```
